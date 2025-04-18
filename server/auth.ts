@@ -30,7 +30,7 @@ export function setupAuth(app: Express) {
         tableName: "session", // Default table name
         createTableIfMissing: true,
       }),
-      secret: process.env.SESSION_SECRET || "your_session_secret_here",
+      secret: process.env.SESSION_SECRET || "desarrollo_local_no_usar_en_produccion",
       resave: false,
       saveUninitialized: false,
       cookie: {

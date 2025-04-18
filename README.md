@@ -1,105 +1,86 @@
-# Express PostgreSQL Auth Demo
+# Aplicación Express con Autenticación
 
-Una aplicación web de producción con Node.js + Express + PostgreSQL con autenticación y gestión de sesiones.
+Aplicación web Node.js con Express y PostgreSQL que incluye un sistema completo de autenticación.
 
 ## Características
 
-- Registro de usuarios (nombre completo, correo electrónico, contraseña)
-- Inicio/cierre de sesión de usuarios usando express-session y connect-pg-simple
-- Contraseñas cifradas con bcrypt
-- Base de datos PostgreSQL con Drizzle ORM
-- Plantillas EJS para el frontend
-- Estilo con Tailwind CSS
-- Diseño responsivo
-- Página de dashboard protegida
+- Registro y login de usuarios
+- Gestión de sesiones con PostgreSQL
+- Protección de rutas para usuarios autenticados
+- Interfaz de usuario responsive con Tailwind CSS
+- Diseñada para despliegue en Render.com
 
-## Instrucciones de configuración
+## Requisitos
 
-1. Clona el repositorio
+- Node.js 18 o superior
+- PostgreSQL (recomendado Neon.tech para bases de datos serverless)
 
-   ```bash
-   git clone https://github.com/your-username/express-auth-demo.git
-   cd express-auth-demo
-   ```
+## Instalación y ejecución local
 
-2. Configura las variables de entorno
+1. Clonar este repositorio
+2. Instalar dependencias: `npm install`
+3. Copiar `.env.example` a `.env` y configurar las variables de entorno
+4. Ejecutar en modo desarrollo: `npm run dev`
 
-   ```bash
-   cp .env.example .env
-   ```
-
-   Edita el archivo .env con tus propias variables (o usa las proporcionadas).
-
-3. Instala las dependencias
-
-   ```bash
-   npm install
-   ```
-
-4. Ejecuta las migraciones de la base de datos
-
-   ```bash
-   npm run db:push
-   ```
-
-5. Inicia el servidor de desarrollo
-
-   ```bash
-   npm run dev
-   ```
-
-   La aplicación estará disponible en http://localhost:3000
-
-## Despliegue en Vercel
-
-Esta aplicación está configurada para desplegarse fácilmente en Vercel:
-
-1. Sube tu código a GitHub
-2. Crea un nuevo proyecto en Vercel y enlaza tu repositorio
-3. Añade las siguientes variables de entorno:
-   - DATABASE_URL
-   - SESSION_SECRET
-   - NODE_ENV (establece como "production")
-   - PGHOST, PGUSER, PGPASSWORD, PGDATABASE, PGPORT (si usas PostgreSQL separado)
-
-El archivo vercel.json ya está configurado con:
-```json
-{
-  "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "outputDirectory": "dist"
-}
-```
-
-## Estructura del proyecto
-
-- `/server` - Servidor Express, rutas y lógica de autenticación
-- `/views` - Plantillas EJS para el frontend
-- `/shared` - Esquemas y tipos compartidos
-- `/public` - Archivos estáticos (CSS, JavaScript, imágenes)
-
-## Variables de entorno necesarias
+## Variables de entorno
 
 ```
 # Variables de entorno para producción
-DATABASE_URL=postgresql://usuario:contraseña@host:puerto/database?sslmode=require
-SESSION_SECRET=claveSecretaParaSesiones
+DATABASE_URL=postgresql://usuario:contraseña@host.servidor.com/nombre_db?sslmode=require
+SESSION_SECRET=clave_secreta_para_sesiones
 PORT=3000
 
 # Variables adicionales para desarrollo
-NODE_ENV=production
+NODE_ENV=development
 
-# Variables de PostgreSQL (si usas un servicio como Neon)
-PGHOST=tu-host-postgresql
-PGUSER=tu-usuario
-PGPASSWORD=tu-contraseña
-PGDATABASE=tu-base-de-datos
+# Variables de PostgreSQL
+PGHOST=host.servidor.com
+PGUSER=usuario
+PGPASSWORD=contraseña
+PGDATABASE=nombre_db
 PGPORT=5432
 ```
 
-## Comandos disponibles
+## Despliegue en Render.com
 
-- `npm run dev` - Inicia el servidor de desarrollo
-- `npm run build` - Construye la aplicación para producción
-- `npm start` - Inicia la aplicación en modo producción
-- `npm run db:push` - Aplica cambios del esquema a la base de datos
+Esta aplicación incluye un archivo `render.yaml` para una fácil configuración de despliegue en Render.com:
+
+1. Crear una cuenta en [Render.com](https://render.com)
+2. Conectar tu repositorio de GitHub
+3. Utilizar la opción "Blueprint" y seleccionar este repositorio
+4. Render creará automáticamente el servicio web y la base de datos según la configuración en `render.yaml`
+
+## Scripts disponibles
+
+- `npm run dev`: Ejecuta la aplicación en modo desarrollo
+- `npm run build`: Compila la aplicación para producción
+- `npm start`: Inicia la aplicación en modo producción
+- `npm run db:push`: Actualiza el esquema de la base de datos
+
+## Estructura del proyecto
+
+```
+├── client/             # Código frontend
+├── server/             # Código backend
+│   ├── auth.ts         # Configuración de autenticación
+│   ├── db.ts           # Conexión a base de datos
+│   ├── index.ts        # Punto de entrada
+│   ├── routes.ts       # Rutas de la API
+│   ├── storage.ts      # Interfaz de almacenamiento
+│   └── vite.ts         # Configuración de Vite
+├── shared/             # Código compartido
+│   └── schema.ts       # Esquema de la base de datos
+├── views/              # Plantillas EJS
+│   ├── dashboard.ejs   # Panel de usuario
+│   ├── login.ejs       # Página de login
+│   └── register.ejs    # Página de registro
+├── scripts/            # Scripts de utilidad
+├── .env                # Variables de entorno (local)
+├── .env.example        # Ejemplo de variables de entorno
+├── render.yaml         # Configuración para Render.com
+└── package.json        # Dependencias y scripts
+```
+
+## Licencia
+
+MIT

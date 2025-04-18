@@ -1,69 +1,105 @@
 # Express PostgreSQL Auth Demo
 
-A production-ready Node.js + Express + PostgreSQL web application with authentication and session management.
+Una aplicación web de producción con Node.js + Express + PostgreSQL con autenticación y gestión de sesiones.
 
-## Features
+## Características
 
-- User registration (full name, email, password)
-- User login/logout using express-session and connect-pg-simple
-- Passwords hashed with bcrypt
-- PostgreSQL database with Drizzle ORM
-- EJS templating for frontend
-- Tailwind CSS styling
-- Responsive design
-- Protected dashboard page
+- Registro de usuarios (nombre completo, correo electrónico, contraseña)
+- Inicio/cierre de sesión de usuarios usando express-session y connect-pg-simple
+- Contraseñas cifradas con bcrypt
+- Base de datos PostgreSQL con Drizzle ORM
+- Plantillas EJS para el frontend
+- Estilo con Tailwind CSS
+- Diseño responsivo
+- Página de dashboard protegida
 
-## Setup Instructions
+## Instrucciones de configuración
 
-1. Clone the repository
+1. Clona el repositorio
 
    ```bash
    git clone https://github.com/your-username/express-auth-demo.git
    cd express-auth-demo
    ```
 
-2. Copy environment variables
+2. Configura las variables de entorno
 
    ```bash
    cp .env.example .env
    ```
 
-   Fill in the SESSION_SECRET in the .env file with a secure random string. 
-   The DATABASE_URL is already configured to use the provided Neon PostgreSQL database.
+   Edita el archivo .env con tus propias variables (o usa las proporcionadas).
 
-3. Install dependencies
+3. Instala las dependencias
 
    ```bash
    npm install
    ```
 
-4. Run database migrations
+4. Ejecuta las migraciones de la base de datos
 
    ```bash
    npm run db:push
    ```
 
-5. Start the development server
+5. Inicia el servidor de desarrollo
 
    ```bash
    npm run dev
    ```
 
-   The application will be available at http://localhost:3000
+   La aplicación estará disponible en http://localhost:3000
 
-## Deployment to Vercel
+## Despliegue en Vercel
 
-This application is configured to deploy easily to Vercel:
+Esta aplicación está configurada para desplegarse fácilmente en Vercel:
 
-1. Push your code to GitHub
-2. Create a new project in Vercel and link your repository
-3. Add the environment variables:
+1. Sube tu código a GitHub
+2. Crea un nuevo proyecto en Vercel y enlaza tu repositorio
+3. Añade las siguientes variables de entorno:
    - DATABASE_URL
    - SESSION_SECRET
-4. Deploy!
+   - NODE_ENV (establece como "production")
+   - PGHOST, PGUSER, PGPASSWORD, PGDATABASE, PGPORT (si usas PostgreSQL separado)
 
-## Project Structure
+El archivo vercel.json ya está configurado con:
+```json
+{
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist"
+}
+```
 
-- `/server` - Express server, routes, and authentication logic
-- `/views` - EJS templates for the frontend
-- `/shared` - Shared schemas and types
+## Estructura del proyecto
+
+- `/server` - Servidor Express, rutas y lógica de autenticación
+- `/views` - Plantillas EJS para el frontend
+- `/shared` - Esquemas y tipos compartidos
+- `/public` - Archivos estáticos (CSS, JavaScript, imágenes)
+
+## Variables de entorno necesarias
+
+```
+# Variables de entorno para producción
+DATABASE_URL=postgresql://usuario:contraseña@host:puerto/database?sslmode=require
+SESSION_SECRET=claveSecretaParaSesiones
+PORT=3000
+
+# Variables adicionales para desarrollo
+NODE_ENV=production
+
+# Variables de PostgreSQL (si usas un servicio como Neon)
+PGHOST=tu-host-postgresql
+PGUSER=tu-usuario
+PGPASSWORD=tu-contraseña
+PGDATABASE=tu-base-de-datos
+PGPORT=5432
+```
+
+## Comandos disponibles
+
+- `npm run dev` - Inicia el servidor de desarrollo
+- `npm run build` - Construye la aplicación para producción
+- `npm start` - Inicia la aplicación en modo producción
+- `npm run db:push` - Aplica cambios del esquema a la base de datos

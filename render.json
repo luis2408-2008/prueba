@@ -2,5 +2,12 @@
   "buildCommand": "npm install && chmod +x scripts/render-setup.sh && ./scripts/render-setup.sh && npm run build",
   "startCommand": "npm start",
   "healthCheckPath": "/login",
-  "plan": "free"
+  "plan": "free",
+  "env": {
+    "DATABASE_URL": "postgresql://neondb_owner:npg_3O1bjMnLrwdE@ep-dawn-glade-a4oz3y8p-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require",
+    "SESSION_SECRET": "Y9ZCxPnK8LwMrJdF6bT2gQvR3hX5sAaE",
+    "NODE_ENV": "production",
+    "SESSION_MAX_AGE": "2592000000",
+    "PUBLIC_URL": "https://auth-express-app.onrender.com"
+  }
 }

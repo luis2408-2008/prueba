@@ -3,9 +3,10 @@ services:
   - type: web
     name: auth-express-app
     runtime: node
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && chmod +x scripts/render-setup.sh && ./scripts/render-setup.sh && npm run build
     startCommand: npm start
     plan: free
+    healthCheckPath: /login
     envVars:
       - key: DATABASE_URL
         fromDatabase:

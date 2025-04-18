@@ -1,6 +1,6 @@
 {
   "buildCommand": "npm install && chmod +x scripts/render-setup.sh && ./scripts/render-setup.sh && npm run build",
-  "startCommand": "npm run start",
+  "startCommand": "npm start",
   "healthCheckPath": "/login",
   "plan": "free"
 }

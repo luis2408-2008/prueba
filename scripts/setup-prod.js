@@ -10,16 +10,19 @@
 
 import { Pool } from '@neondatabase/serverless';
 import ws from 'ws';
-import 'dotenv/config';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuración para WebSockets con Neon
-const neonConfig = {
+globalThis.neonConfig = {
   webSocketConstructor: ws
 };
-Object.defineProperty(globalThis, 'neonConfig', {
-  value: neonConfig,
-  configurable: true,
-});
 
 // Verificar variables de entorno requeridas
 console.log('Verificando variables de entorno...');
@@ -29,12 +32,7 @@ const requiredEnvVars = [
   'PORT'
 ];
 
-let missingVars = [];
-for (const envVar of requiredEnvVars) {
-  if (!process.env[envVar]) {
-    missingVars.push(envVar);
-  }
-}
+const missingVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
 
 if (missingVars.length > 0) {
   console.error(`ERROR: Faltan las siguientes variables de entorno: ${missingVars.join(', ')}`);
@@ -72,7 +70,6 @@ async function createSessionTable() {
 // Ejecutar configuraciones
 async function setup() {
   try {
-    // Crear tabla de sesiones
     const sessionTableCreated = await createSessionTable();
     if (!sessionTableCreated) {
       process.exit(1);

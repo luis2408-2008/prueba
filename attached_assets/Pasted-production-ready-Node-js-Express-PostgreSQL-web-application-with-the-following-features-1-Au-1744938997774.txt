@@ -1,0 +1,44 @@
+production‑ready Node.js + Express + PostgreSQL web application with the following features:
+
+1. *Authentication*  
+   - User registration (full name, email, password)  
+   - User login/logout using express‑session and connect‑pg‑simple  
+   - Passwords hashed with bcrypt  
+   - On successful login, redirect to a protected page that displays “Hola Mundo, <username>”
+
+2. *Database*  
+   - Use PostgreSQL, with connection string provided below  
+   - Use an ORM or query builder (e.g. Prisma, Drizzle or plain pg)  
+   - Create a “users” table with id, name, email, password, created_at  
+
+3. *Frontend*  
+   - Simple HTML templates using EJS or Pug (your choice)  
+   - Modern styling with Tailwind CSS via CDN  
+   - A clean, responsive login and register form  
+   - A protected “Dashboard” page showing “Hola Mundo, <username>” and a “Logout” button  
+
+4. *Environment & Deployment*  
+   - Include a .env.example with these variables (do not fill SECRET_KEY):  
+     
+     DATABASE_URL=postgresql://neondb_owner:npg_3O1bjMnLrwdE@ep-dawn-glade-a4oz3y8p-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require
+     SESSION_SECRET=your_session_secret_here
+     PORT=3000
+       
+   - In code, read these via process.env  
+   - Add a vercel.json and configure build and routes so it runs on Vercel out of the box  
+   - Provide package.json scripts: "dev", "start", and a "vercel-build" if needed  
+
+5. *Project Structure*  
+   - package.json, .gitignore, .env.example  
+   - server.js or app.js with Express setup, session middleware, and routes  
+   - views/ folder with login.ejs, register.ejs, dashboard.ejs  
+   - public/ folder for Tailwind imports, optional custom CSS/JS  
+
+6. *Instructions*  
+   - Include a README.md with setup steps:  
+     1. Copy .env.example to .env and fill SESSION_SECRET  
+     2. npm install  
+     3. npm run dev (or vercel dev)  
+     4. Deploy to Vercel  
+
+Use the exact DATABASE_URL above. Ensure sessions persist across Vercel deployments. Make it as minimal as possible so that cloning, installing, and deploying on Vercel yields a running app with register/login and a “Hola Mundo” dashboard.
